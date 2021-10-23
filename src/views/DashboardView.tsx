@@ -1,11 +1,12 @@
 import React from 'react';
+import Layout from '../components/Layout';
 
 class DashboardView extends React.Component {
   render() {
   return (
-    <div>
+    <Layout>
         <h1>Dashboard gang</h1>
-    </div>
+    </Layout>
   );
   }
 }
