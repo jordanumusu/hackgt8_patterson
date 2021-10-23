@@ -8,10 +8,10 @@ function App() {
     <div>
       <Router>
         <Switch>
-          <Route path="/dashboard">
+          <Route exact path="/dashboard">
             <DashboardView />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <LoginView />
           </Route>
         </Switch>

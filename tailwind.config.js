@@ -3,6 +3,7 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      
       backgroundImage: theme => ({
       'login': "url('../assets/images/loginBackground.jpg')"
       }),
