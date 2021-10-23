@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import TextField from "../components/TextField";
 import axios from "axios";
@@ -11,7 +11,7 @@ interface LoginValues {
 }
 
 function LoginView() {
-  let date = new Date();
+  const date = new Date();
 
   const hmacAccessKey = createHMAC({
     sharedKey: "2aa1e579a125402aa89c7ffa702af1f7",
@@ -21,26 +21,24 @@ function LoginView() {
     requestURL: "https://gateway-staging.ncrcloud.com/order/3/orders/1",
     nepOrganization: "test-drive-47aaf36264c049fca8341",
     contentType: "application/json",
-  })
+  });
 
   const headers = {
-    "Allow": "application/json",
-    'accept': "application/json",
+    Allow: "application/json",
+    accept: "application/json",
     "nep-organization": "ur-hack",
     "Content-Type": "application/json",
-     Authorization:  `AccessKey ${hmacAccessKey}`,
+    Authorization: `AccessKey ${hmacAccessKey}`,
   };
-
-  const client = axios.create({
-    timeout: 1000,
-    headers: headers,
-  });
 
   const initialValues: LoginValues = {
     email: "",
     password: "",
     remember: false,
   };
+
+  const history = useHistory();
+
 
   return (
     <div className="overflow-hidden grid grid-cols-9 w-screen h-screen ">
@@ -52,7 +50,8 @@ function LoginView() {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            axios.get("https://gateway-staging.ncrcloud.com/order/3/orders/1", {headers: headers});
+            history.push("/dashboard");
+            //axios.get("https://gateway-staging.ncrcloud.com/order/3/orders/1", {headers: headers});
           }}
         >
           {({
@@ -85,7 +84,7 @@ function LoginView() {
                   </label>
                 </div>
                 <div>
-                  <p>Forg</p>
+                  <p>Forgot Password?</p>
                 </div>
               </div>
             </Form>
