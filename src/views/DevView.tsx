@@ -1,14 +1,14 @@
 import { useCallback, useEffect, useState } from "react"
-import { listMessages, listMessagesByNumber } from "../api/twilio"
+import { getAllNumbers, listMessages, listMessagesByNumber } from "../api/twilio"
 
 
 
 export const DevView = () => {
-    const [number, setNumber] = useState("+14703066493");
-    const [currentMessages, setCurrentMessages]: [any[], any] = useState([]);
+    const [messages, setMessages]: [any[], any] = useState([]);
+    const [number, setNumber] = useState("");
 
     const map = [{bruh: "bruh"}]
-    const getCurrentMessages = useCallback(async (number: String) => {
+    /*const getCurrentMessages = useCallback(async (number: String) => {
         let messages = await listMessagesByNumber(number);
         setCurrentMessages(messages);
     }, [])
@@ -16,11 +16,30 @@ export const DevView = () => {
         if (currentMessages.length == 0) {
             getCurrentMessages(number);
         }
-    }, [getCurrentMessages])
+    }, [getCurrentMessages]) */
 
-    console.log(currentMessages)
+    useEffect(() => {
+        listMessages().then(
+            (data) => {
+                setMessages(data)
+                setNumber(getAllNumbers(data)[0])
+            }
+        )
+    }, [])
+    useEffect(() => {
+        const interval = setInterval(() => {
+            listMessages().then(
+                (data) => {
+                    setMessages(data)
+                }
+            )
+        }, 5000)
+        
+        return () => clearInterval(interval);
+    }, [])
+
     return (<div>
-        {currentMessages.map((message: {body: String}) => (
+        {listMessagesByNumber(messages, number).map((message: {body: String}) => (
             <p>
                 {message.body}
             </p>
