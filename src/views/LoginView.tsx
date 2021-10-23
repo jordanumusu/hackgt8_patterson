@@ -18,7 +18,7 @@ function LoginView() {
     date: date,
     secretKey: "74d13f63b96245c8bb45c5700e8614d3",
     httpMethod: "GET",
-    requestURL: "https://gateway-staging.ncrcloud.com//order/v3/orders/find?pageNumber=1&pageSize=20",
+    requestURL: "https://gateway-staging.ncrcloud.com/order/3/orders/1",
     nepOrganization: "test-drive-47aaf36264c049fca8341",
     contentType: "application/json",
   })
@@ -52,7 +52,7 @@ function LoginView() {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            axios.get("https://gateway-staging.ncrcloud.com//order/v3/orders/find?pageNumber=1&pageSize=20", {headers: headers});
+            axios.get("https://gateway-staging.ncrcloud.com/order/3/orders/1", {headers: headers});
           }}
         >
           {({
