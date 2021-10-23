@@ -6,7 +6,6 @@ const client = require('twilio')(
     process.env.TWILIO_AUTH_TOKEN
   );
 
-
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
