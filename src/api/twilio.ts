@@ -14,6 +14,14 @@ export const listMessages = async () => {
 
 }
 
+export const sendMessage = async (body: String, number: String) => {
+    const res = await fetch(`api/sendMessage?body=${body}&number=${number}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
 export const getAllNumbers = (messages: any) => {
     let numbers: any[] = []
     messages.forEach((element: { to: string; from: string; }) => {
