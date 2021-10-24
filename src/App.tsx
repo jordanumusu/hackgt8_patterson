@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardView from "./views/DashboardView";
-import { DevView } from "./views/DevView";
+import { ChatView } from "./views/ChatView";
 import LoginView from "./views/LoginView";
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
           <Route path="/dashboard">
             <DashboardView/>
           </Route>
-          <Route path="/dev">
-            <DevView/>
+          <Route path="/chat">
+            <ChatView/>
           </Route>
           <Route exact path="/">
             <LoginView />
