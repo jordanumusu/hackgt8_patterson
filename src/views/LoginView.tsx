@@ -54,8 +54,8 @@ function LoginView() {
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            setLoading(true)
-            //history.push("/dashboard");
+            //setLoading(true)
+            history.push("/dashboard");
             //axios.get("https://gateway-staging.ncrcloud.com/order/3/orders/1", {headers: headers});
           }}
         >

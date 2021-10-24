@@ -37,7 +37,7 @@ function NavBar({ className }: NavBarProps) {
         <nav className="flex flex-col w-full justify-center mt-6">
           <NavItem name="Dashboard" path="/dashboard" icon={<ViewGridIcon />} />
           <NavItem name="Customer Chat" path="/chat" icon={<ChatIcon />} />
-          <NavItem name="Manage Team" path="/s" icon={<UsersIcon />} />
+          <NavItem name="Manage Team" path="/team" icon={<UsersIcon />} />
           <NavItem name="Calendar" path="/s" icon={UsersIcon} />
           <NavItem name="Documents" path="/s" icon={UsersIcon} />
         </nav>
