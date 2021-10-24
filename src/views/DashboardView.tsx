@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
+import Calendar from "react-calendar";
+import { parseISO, format, subDays } from "date-fns";
 import {
   ResponsiveContainer,
   PieChart,
@@ -7,7 +9,7 @@ import {
   Cell,
   BarChart,
   Bar,
-  Line,
+  Legend,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -17,31 +19,40 @@ import {
 } from "recharts";
 
 function DashboardView() {
-  const pieData = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
+  interface ToolTipProps {
+    active?: any;
+    payload?: any;
+    label?: any;
+  }
+
+  const [value, onChange] = useState(new Date());
+  const expenditureData = [
+    { name: "Rent & Utilities", value: 5 },
+    { name: "Food Costs", value: 40 },
+    { name: "Labor Costs", value: 30 },
+    { name: "Marketing", value: 15 },
+    { name: "Misc.", value: 10 },
   ];
 
-  const revenueData = [
-    {
-      date: "10/7",
-      revenue: 2400,
-    },
-    {
-      date: "10/14",
-      revenue: 1398,
-    },
-    {
-      date: "10/21",
-      revenue: 2290,
-    },
-    {
-      date: "10/28",
-      revenue: 2780,
-    },
-  ];
+  const CustomTooltip = ({ active, payload, label }: ToolTipProps) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white bg-opacity-95 rounded-lg p-4">
+          <p className="label text-green-500">{`${format(parseISO(label),"eeee, d MMM, yyyy")}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  let revenueData = [];
+
+  for (let i = 30; i >= 0; i--) {
+    revenueData.push({
+      date: subDays(new Date(), i).toISOString().substr(0, 10),
+      revenue: Math.trunc(2400 + Math.random() * 500),
+    });
+  }
 
   const visitorData = [
     {
@@ -65,33 +76,42 @@ function DashboardView() {
       firstTime: 120,
     },
   ];
-  const pieColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const pieColors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#FF8021"];
 
   return (
     <Layout>
-      <div className="grid grid-cols-12 gap-x-8 gap-y-4 pr-10 pl-6">
-        <div className="bg-white col-span-8 p-4 shadow-lg flex-col">
-          <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-            role="alert"
-          >
-            <strong className="font-bold">Holy smokes! </strong>
-            <span className="block sm:inline">
-              Something seriously bad happened.
-            </span>
-            <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
-              <svg
-                className="fill-current h-6 w-6 text-red-500"
-                role="button"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <title>Close</title>
-                <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
-              </svg>
-            </span>
+      <div className="grid grid-cols-12 gap-x-8 gap-y-6 pr-10 pl-6">
+        <div className="flex flex-col col-span-3">
+          <h1 className="col-span-12 text-gray-500 text-3xl font-semibold font-sans">
+            Dashboard
+          </h1>
+          <h1 className="col-span-12 text-gray-300 text-2xl">
+            Overview, October 24 2021
+          </h1>
+        </div>
+        <div className="flex justify-evenly w-full gap-4 col-span-12 ">
+          <div className="flex flex-col items-center flex-1 p-4 bg-white h-24 shadow rounded-lg">
+            <p className="text-3xl font-semibold mb-2">$10,860</p>
+            <p className="text-gray-500">Net Profit</p>
           </div>
-          <ResponsiveContainer height="80%" className="mt-8">
+          <div className="flex flex-col items-center flex-1 p-4 bg-white shadow rounded-lg">
+            <p className="text-3xl font-semibold mb-2">$115,720</p>
+            <p className="text-gray-500">Gross Margin</p>
+          </div>
+          <div className="flex flex-col items-center flex-1 p-4 bg-white shadow rounded-lg">
+            <p className="text-3xl font-semibold mb-2">50%</p>
+            <p className="text-gray-500">Retention Rate</p>
+          </div>
+          <div className="flex flex-col items-center flex-1 p-4 bg-white shadow rounded-lg">
+            <p className="text-3xl font-semibold mb-2">$23.15</p>
+            <p className="text-gray-500"> Visitor Acquisition Cost</p>
+          </div>
+        </div>
+        <div className="bg-white col-span-8 shadow-lg ">
+          <div className="border-b-2 px-8 py-4 text-xl font-semibold">
+            Revenue Overview
+          </div>
+          <ResponsiveContainer height="80%" className=" py-4">
             <AreaChart
               data={revenueData}
               margin={{
@@ -104,12 +124,26 @@ function DashboardView() {
               <defs>
                 <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="0" stopColor="#0CA054" stopOpacity={0.2} />
-                  <stop offset="75%" stopColor="#0CA054" stopOpacity={0.2} />
+                  <stop offset="75%" stopColor="#0CA054" stopOpacity={0.05} />
                 </linearGradient>
               </defs>
-              <XAxis dataKey="date" />
-              <YAxis />
-              <Tooltip />
+              
+              <XAxis
+                dataKey="date"
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={ (str)  => {
+                  const date = parseISO(str);
+                  if (date.getDate() % 7 == 0) {
+                      return format(date,"MMM d")
+                  }
+                  return ""
+                }}
+              />
+              <YAxis axisLine={false} tickLine={false} dataKey="revenue"  tickFormatter={ (str) => {
+                return `$${str}`
+              }}/>
+              <Tooltip content={<CustomTooltip />} />
               <Area
                 type="natural"
                 dataKey="revenue"
@@ -120,59 +154,31 @@ function DashboardView() {
             </AreaChart>
           </ResponsiveContainer>
         </div>
+        <div className="bg-white col-start-9 col-end-13 h-96 shadow-lg rounded-xl">
+          <h1 className="mt-96">fdasfds</h1>
+        </div>
         <div className="bg-white col-span-4 shadow-lg rounded-xl flex-col">
-          <div className="text-gray-400 justify-center flex text-2xl">Visitors</div>
-          <ResponsiveContainer height="90%">
+          <div className="text-gray-400 justify-left2 flex text-2xl my-2 ml-5">
+            Visitors
+          </div>
+          <ResponsiveContainer height="85%">
             <BarChart data={visitorData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis />
-              <Tooltip />
-              <Bar dataKey="visitors" fill="#ef476f" radius={[10, 10, 0, 0]} />
+              <Tooltip cursor={{ fill: "transparent" }} />
+              <Bar
+                filter="shadow"
+                dataKey="visitors"
+                fill="#ef476f"
+                radius={[10, 10, 0, 0]}
+              />
               <Bar dataKey="firstTime" fill="#ffd166" radius={[10, 10, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
-
-        <div className="bg-white flex justify-evenly w-full col-span-12 grid-flow-row auto-rows-auto mt-6 mr-4 divide-x shadow">
-          <div className="flex flex-col items-center flex-1 p-12">
-            <p className="text-3xl font-semibold mb-2">$10,860</p>
-            <p className="text-gray-500">Net Profit</p>
-          </div>
-          <div className="flex flex-col items-center flex-1 p-12">
-            <p className="text-3xl font-semibold mb-2">$115,720</p>
-            <p className="text-gray-500">Gross Margin</p>
-          </div>
-          <div className="flex flex-col items-center flex-1 p-12">
-            <p className="text-3xl font-semibold mb-2">50%</p>
-            <p className="text-gray-500">Retention Rate</p>
-          </div>
-          <div className="flex flex-col items-center flex-1 p-12">
-            <p className="text-3xl font-semibold mb-2">$23.15</p>
-            <p className="text-gray-500"> Visitor Acquisition Cost</p>
-          </div>
-        </div>
-        <div className="bg-white col-span-3 h-96 shadow-lg rounded-xl">
-          <ResponsiveContainer>
-            <PieChart>
-              <Pie
-                data={pieData}
-                innerRadius={60}
-                outerRadius={80}
-                fill="#8884d8"
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {pieData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={pieColors[index % pieColors.length]}
-                  />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
+       
+        
       </div>
     </Layout>
   );
