@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import TextField from "../components/TextField";
 import axios from "axios";
 import createHMAC from "../api/hmacSnippet";
+import MoonLoader from "react-spinners/MoonLoader"
+
 interface LoginValues {
   email: string;
   password: string;
@@ -11,6 +13,7 @@ interface LoginValues {
 }
 
 function LoginView() {
+  const [isLoading,setLoading] = useState(false) 
   const date = new Date();
 
   const hmacAccessKey = createHMAC({
@@ -43,14 +46,16 @@ function LoginView() {
   return (
     <div className="overflow-hidden grid grid-cols-9 w-screen h-screen ">
       {/* Login Side */}
-      <div className="col-span-4 h-full w-full flex flex-col justify-center items-center ">
-        <h1 className="text-5xl text-green-700 pb-12 font-bold">Patterson</h1>
+      <div className={`col-span-4 h-full w-full flex flex-col justify-center items-center ${!isLoading ? 'opacity-100' : 'opacity-0'}`}>
+        {isLoading ? <MoonLoader speedMultiplier={0.5} color="green" size={150} css={`border-color:green`}/> : <div/>}
+        <h1 className="text-5xl text-green-600 pb-12 font-bold">Patterson</h1>
 
         {/* Explore better validators?? */}
         <Formik
           initialValues={initialValues}
           onSubmit={(values, { setSubmitting }) => {
-            history.push("/dashboard");
+            setLoading(true)
+            //history.push("/dashboard");
             //axios.get("https://gateway-staging.ncrcloud.com/order/3/orders/1", {headers: headers});
           }}
         >
@@ -67,7 +72,7 @@ function LoginView() {
               <TextField label="Email" name="email" type="email" />
               <TextField label="Password" name="password" type="text" />
               <button
-                className="bg-green-700 text-white h-12 rounded font-bold"
+                className="bg-green-500 text-white h-12 rounded font-bold"
                 type="submit"
               >
                 Submit
@@ -77,23 +82,25 @@ function LoginView() {
                   <Field
                     type="checkbox"
                     name="remember"
-                    className="rounded bg-white focus:ring-0 text-green-700 h-5 w-5 border-gray-300"
+                    className="rounded bg-white focus:ring-0 text-green-500 h-5 w-5 border-gray-300"
                   />
-                  <label className="text-black p-2 font-medium">
+                  <label className="text-medium p-2 font-medium">
                     Remember Me
                   </label>
                 </div>
-                <div>
-                  <p>Forgot Password?</p>
-                </div>
+                <button className="text-green-500">
+                  Forgot Password?
+                </button>
               </div>
             </Form>
           )}
         </Formik>
       </div>
 
+
+
       {/* Image Side */}
-      <div className="col-span-5 bg-cover bg-no-repeat bg-green-700"></div>
+      <div className=" col-span-5 bg-cover bg-green-500"></div>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../components/Layout";
-import Calendar from "react-calendar";
+import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/outline";
 import { parseISO, format, subDays } from "date-fns";
 import {
   ResponsiveContainer,
@@ -34,11 +34,25 @@ function DashboardView() {
     { name: "Misc.", value: 10 },
   ];
 
-  const CustomTooltip = ({ active, payload, label }: ToolTipProps) => {
+  const RevenueTooltip = ({ active, payload, label }: ToolTipProps) => {
     if (active && payload && payload.length) {
       return (
         <div className="bg-white bg-opacity-95 rounded-lg p-4">
-          <p className="label text-green-500">{`${format(parseISO(label),"eeee, d MMM, yyyy")}`}</p>
+          <p className="label text-green-500">{`${format(
+            parseISO(label),
+            "eeee, d MMM, yyyy"
+          )}`}</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const VisitorTooltip = ({ active, payload, label }: ToolTipProps) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white bg-opacity-95 rounded-lg p-4">
+          <p className="label text-gray-400">{`${payload[0].value}`}</p>
         </div>
       );
     }
@@ -57,22 +71,22 @@ function DashboardView() {
   const visitorData = [
     {
       date: "10/7",
-      visitors: 2400,
+      Visitors: 2400,
       firstTime: 68,
     },
     {
       date: "10/14",
-      visitors: 1398,
+      Visitors: 1398,
       firstTime: 200,
     },
     {
       date: "10/21",
-      visitors: 2290,
+      Visitors: 2290,
       firstTime: 290,
     },
     {
       date: "10/28",
-      visitors: 2780,
+      Visitors: 2780,
       firstTime: 120,
     },
   ];
@@ -80,96 +94,122 @@ function DashboardView() {
 
   return (
     <Layout>
-      <div className="grid grid-cols-12 gap-x-8 gap-y-6 pr-10 pl-6">
-        <div className="flex flex-col col-span-3">
-          <h1 className="col-span-12 text-gray-500 text-3xl font-semibold font-sans">
-            Dashboard
-          </h1>
-          <h1 className="col-span-12 text-gray-300 text-2xl">
-            Overview, October 24 2021
-          </h1>
-        </div>
-        <div className="flex justify-evenly w-full gap-4 col-span-12 ">
-          <div className="flex flex-col items-center flex-1 p-4 bg-white h-24 shadow rounded-lg">
+      <div className="flex-col pr-10 pl-6 grid-rows-12">
+        <div className="flex justify-evenly w-full mb-8 space-x-12">
+          <div className="flex flex-col items-center flex-1 p-4  bg-white shadow rounded-lg">
             <p className="text-3xl font-semibold mb-2">$10,860</p>
-            <p className="text-gray-500">Net Profit</p>
+            <p className="text-gray-500 mb-1">Net Profit</p>
+            <div className="flex items-center space-x-2 text-green-500">
+              <ArrowUpIcon className="h-4 w-4" />
+              <p>5.09%</p>
+            </div>
           </div>
           <div className="flex flex-col items-center flex-1 p-4 bg-white shadow rounded-lg">
             <p className="text-3xl font-semibold mb-2">$115,720</p>
-            <p className="text-gray-500">Gross Margin</p>
+            <p className="text-gray-500 mb-1">Gross Margin</p>
+            <div className="flex items-center space-x-2 text-green-500">
+              <ArrowUpIcon className="h-4 w-4" />
+              <p>15.22%</p>
+            </div>
           </div>
           <div className="flex flex-col items-center flex-1 p-4 bg-white shadow rounded-lg">
             <p className="text-3xl font-semibold mb-2">50%</p>
-            <p className="text-gray-500">Retention Rate</p>
+            <p className="text-gray-500 mb-1">Retention Rate</p>
+            <div className="flex items-center space-x-2 text-red-500">
+              <ArrowDownIcon className="h-4 w-4" />
+              <p>7.14%</p>
+            </div>
           </div>
           <div className="flex flex-col items-center flex-1 p-4 bg-white shadow rounded-lg">
             <p className="text-3xl font-semibold mb-2">$23.15</p>
-            <p className="text-gray-500"> Visitor Acquisition Cost</p>
+            <p className="text-gray-500 mb-1"> Customer Acquisition Cost</p>
+            <div className="flex items-center space-x-2 text-red-500">
+              <ArrowDownIcon className="h-4 w-4" />
+              <p>2.19%</p>
+            </div>
           </div>
         </div>
-        <div className="bg-white col-span-8 shadow-lg ">
-          <div className="border-b-2 px-8 py-4 text-xl font-semibold">
-            Revenue Overview
-          </div>
-          <ResponsiveContainer height="80%" className=" py-4">
-            <AreaChart
-              data={revenueData}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <defs>
-                <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stopColor="#0CA054" stopOpacity={0.2} />
-                  <stop offset="75%" stopColor="#0CA054" stopOpacity={0.05} />
-                </linearGradient>
-              </defs>
+        <div className="flex">
+          <div className="bg-white flex flex-col shadow-lg w-3/4">
+            <div className="flex border-b-2 px-8 py-4 w-full justify-between">
+            <h2 className=" text-xl font-semibold">
+              Revenue Overview
               
-              <XAxis
-                dataKey="date"
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={ (str)  => {
-                  const date = parseISO(str);
-                  if (date.getDate() % 7 == 0) {
-                      return format(date,"MMM d")
-                  }
-                  return ""
+            </h2>
+            <div className="flex items-center space-x-2 text-red-500 font-semibold">
+              <ArrowDownIcon className="h-4 w-4 font-semibold transform" />
+              <p>2.19%</p>
+            </div>
+              </div>
+            <ResponsiveContainer height="80%" className="py-4">
+              <AreaChart
+                data={revenueData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
                 }}
-              />
-              <YAxis axisLine={false} tickLine={false} dataKey="revenue"  tickFormatter={ (str) => {
-                return `$${str}`
-              }}/>
-              <Tooltip content={<CustomTooltip />} />
-              <Area
-                type="natural"
-                dataKey="revenue"
-                stroke="#0CCE6B"
-                strokeWidth={2}
-                fill="url(#color)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
+              >
+                <defs>
+                  <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stopColor="#0CA054" stopOpacity={0.2} />
+                    <stop offset="75%" stopColor="#0CA054" stopOpacity={0.05} />
+                  </linearGradient>
+                </defs>
+
+                <XAxis
+                  dataKey="date"
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(str) => {
+                    const date = parseISO(str);
+                    if (date.getDate() % 7 == 0) {
+                      return format(date, "MMM d");
+                    }
+                    return "";
+                  }}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  dataKey="revenue"
+                  tickFormatter={(str) => {
+                    return `$${str}`;
+                  }}
+                />
+                <Tooltip content={<RevenueTooltip />} />
+                <Area
+                  type="natural"
+                  dataKey="revenue"
+                  stroke="#0CCE6B"
+                  strokeWidth={2}
+                  fill="url(#color)"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="bg-white col-start-9 w-1/4 ml-8 shadow-lg rounded-xl">
+            <div className="font-bold font-display flex justify-center items-start">
+              TO-DO
+            </div>
+          </div>
         </div>
-        <div className="bg-white col-start-9 col-end-13 h-96 shadow-lg rounded-xl">
-          <h1 className="mt-96">fdasfds</h1>
-        </div>
+
         <div className="bg-white col-span-4 shadow-lg rounded-xl flex-col">
-          <div className="text-gray-400 justify-left2 flex text-2xl my-2 ml-5">
+          <div className="font-medium justify-left2 flex text-2xl mt-4 ml-8">
             Visitors
           </div>
-          <ResponsiveContainer height="85%">
+          <ResponsiveContainer height="84%" className="py-3">
             <BarChart data={visitorData}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis />
-              <Tooltip cursor={{ fill: "transparent" }} />
+              <Tooltip content={<VisitorTooltip />} />
+              <Legend />
               <Bar
                 filter="shadow"
-                dataKey="visitors"
+                dataKey="Visitors"
                 fill="#ef476f"
                 radius={[10, 10, 0, 0]}
               />
@@ -177,8 +217,6 @@ function DashboardView() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-       
-        
       </div>
     </Layout>
   );

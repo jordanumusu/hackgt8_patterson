@@ -10,12 +10,15 @@ module.exports = {
         'display': ['Rubik']
       },
       backgroundImage: theme => ({
-      'login': "url('../assets/images/loginBackground.jpg')"
+      'login': "url('../assets/images/loginBackground.jpg')",
+      
       }),
       colors: {
         white: "#FFFFFF",
         secondary: "#FFD166",
+        kindagreen:" #30af48",
         tertiary: "#2f86ce",
+        test: "#f4f9fc",
         gray: colors.trueGray,
         purple: colors.purple
       },
