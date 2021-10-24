@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import Layout from "../components/Layout";
 import {
   ResponsiveContainer,
@@ -15,8 +15,16 @@ import {
   AreaChart,
   Tooltip,
 } from "recharts";
+import axios from "axios";
+
 
 function DashboardView() {
+  useEffect(() => {
+    axios.get("http://127.0.0.1:5000/")
+      .then((response) => console.log(response));
+  }, []);
+
+
   const pieData = [
     { name: "Group A", value: 400 },
     { name: "Group B", value: 300 },

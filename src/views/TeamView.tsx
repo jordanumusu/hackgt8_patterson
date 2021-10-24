@@ -53,11 +53,42 @@ const getData = () => {
     },
     {
       name: 'Catherine Taylor',
-      title: 'Waiteress',
+      title: 'Waitress',
 
       points: '76',
       role: 'Off',
       imgUrl: 'https://images.unsplash.com/photo-1556015048-4d3aa10df74c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+    },
+    {
+        name: 'Morris Jones',
+        title: 'Assistant Manager',
+  
+        points: '62',
+        role: 'Clocked In',
+        imgUrl: 'https://images.unsplash.com/photo-1589279715734-6631a314dfa2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+    },
+    {
+        name: 'Charles Smith',
+        title: 'Janitor',
+  
+        points: '99',
+        role: 'Off',
+        imgUrl: 'https://images.unsplash.com/photo-1593839677138-2a6800bb519d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+    },
+    {
+        name: 'Lauren Kellerman',
+        title: 'Bartender',
+  
+        points: '81',
+        role: 'Clocked Out',
+        imgUrl: 'https://images.unsplash.com/photo-1545205597-85ce61ef3ef1?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+    },
+    {
+      name: 'Allison Keller',
+      title: 'Chef',
+      points: '47',
+      role: 'Off',
+      imgUrl: 'https://images.unsplash.com/photo-1498551172505-8ee7ad69f235?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
     },
   ]
   return [...data]
@@ -84,7 +115,7 @@ function TeamView() {
       filter: 'includes',
     },
     {
-      Header: "Points",
+      Header: "Performance",
       accessor: 'points',
       Cell: StatusPill,
     },

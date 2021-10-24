@@ -17,4 +17,5 @@ function NavItem({ name, path, icon }: NavItemProps) {
   );
 }
 
+
 export default NavItem;
