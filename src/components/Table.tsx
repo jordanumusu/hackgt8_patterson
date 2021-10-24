@@ -47,7 +47,7 @@ function GlobalFilter({
           setValue(e.target.value);
           onChange(e.target.value);
         }}
-        placeholder={`Name, title, status, points`}
+        placeholder={'Name, title, status...'}
       />
     </label>
   );
@@ -196,7 +196,7 @@ function Table({ columns, data } : columns) {
                 {...getTableProps()}
                 className="min-w-full divide-y divide-gray-200"
               >
-                <thead className="bg-gray-50">
+                <thead className="bg-green-200">
                   {headerGroups.map((headerGroup : any) => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                       {headerGroup.headers.map((column : any) => (
