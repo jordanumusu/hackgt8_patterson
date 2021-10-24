@@ -5,7 +5,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      
+      fontFamily: {
+        'display': ['Rubik']
+      },
       backgroundImage: theme => ({
       'login': "url('../assets/images/loginBackground.jpg')"
       }),

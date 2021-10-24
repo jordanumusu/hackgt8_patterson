@@ -39,11 +39,11 @@ function NavBar({ className }: NavBarProps) {
         <div className="flex flex-col w-full justify-center ml-6 absolute bottom-0 mb-2">
          <div className="flex items-center text-gray-400">
            <CogIcon className="w-8 h-8 m-2"/>
-           <button className="text-xl font-semibold">Settings</button>
+           <button className="text-xl font-medium">Settings</button>
          </div>
          <div className="flex items-center text-gray-400">
          <LogoutIcon className="w-8 h-8 m-2"/>
-         <button className="text-xl font-semibold">Log out</button>
+         <button className="text-xl font-medium">Log out</button>
          </div>
         </div>
       </div>
