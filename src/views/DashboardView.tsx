@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Layout from "../components/Layout";
 import { ArrowUpIcon, ArrowDownIcon } from "@heroicons/react/outline";
 import { parseISO, format, subDays } from "date-fns";
@@ -17,6 +17,8 @@ import {
   AreaChart,
   Tooltip,
 } from "recharts";
+import axios from "axios";
+
 
 function DashboardView() {
   interface ToolTipProps {

@@ -7,10 +7,13 @@ import {
   CogIcon,
   LogoutIcon,
   MenuIcon,
-  ArrowLeftIcon
+  ArrowLeftIcon,
 } from "@heroicons/react/outline";
+import { ReactComponent as Twitter } from "../assets/images/twitter.svg";
+import { ReactComponent as Instagram } from "../assets/images/IG.svg";
+import { ReactComponent as Facebook } from "../assets/images/FB.svg";
 
-import {UserCircleIcon} from "@heroicons/react/solid"
+import { UserCircleIcon } from "@heroicons/react/solid";
 
 interface NavBarProps {
   className: string;
@@ -19,7 +22,10 @@ interface NavBarProps {
 function NavBar({ className }: NavBarProps) {
   const [toggleLinks, setToggle] = useState(false);
   return (
-    <div className={`flex flex-col items-center md:ml-4 ${className}`} style={{width:"250px"}}>
+    <div
+      className={`flex flex-col items-center md:ml-4 ${className}`}
+      style={{ width: "250px" }}
+    >
       <div className="md:mt-3 self-start md:self-auto">
         <img onClick={() => setToggle(true)} className="md:hidden absolute z-10 top-4 left-4 w-5 h-5" src="https://img.icons8.com/material-outlined/24/000000/menu--v1.png"/>
         <h1 className="text-green-600 text-3xl hidden md:block no-sel font-bold">Patterson</h1>
@@ -35,7 +41,6 @@ function NavBar({ className }: NavBarProps) {
           <NavItem name="Calendar" path="/s" icon={UsersIcon} />
           <NavItem name="Documents" path="/s" icon={UsersIcon} />
         </nav>
-      
         <div className="flex flex-col w-full justify-center ml-6 absolute bottom-0 mb-2">
          <div className="flex items-center text-gray-400">
            <CogIcon className="w-8 h-8 m-2"/>

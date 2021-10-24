@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import DashboardView from "./views/DashboardView";
 import { ChatView } from "./views/ChatView";
 import LoginView from "./views/LoginView";
+import TeamView from "./views/TeamView";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
           </Route>
           <Route path="/chat">
             <ChatView/>
+          </Route>
+          <Route path="/team">
+            <TeamView />
           </Route>
           <Route exact path="/">
             <LoginView />
