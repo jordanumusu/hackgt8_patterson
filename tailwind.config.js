@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans' : ['Ubuntu',...defaultTheme.fontFamily.sans]
+        'display': ['Rubik']
       },
       backgroundImage: theme => ({
       'login': "url('../assets/images/loginBackground.jpg')"

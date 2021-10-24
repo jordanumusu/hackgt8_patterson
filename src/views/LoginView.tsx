@@ -72,7 +72,7 @@ function LoginView() {
               >
                 Submit
               </button>
-              <div className="flex">
+              <div className="flex items-center justify-between">
                 <div className="my-2 flex items-center">
                   <Field
                     type="checkbox"

@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 
 
 
-export const DevView = () => {
+export const ChatView = () => {
     const [messages, setMessages]: [any[], any] = useState([]);
     const [number, setNumber] = useState("");
     const chatBox = useRef<HTMLInputElement>(null);
@@ -52,7 +52,7 @@ export const DevView = () => {
 
         <Layout>
             <div className="flex flex-col md:flex-row w-full">
-            <div className="flex flex-col mr-2">
+            <div className="flex flex-col">
                 {
                     getAllNumbers(messages).map((num) => (
                         <div onClick={() => setNumber(num)} className={"flex text-gray-400 p-3 border w-full" + (number == num ? " bg-gray-200" : " bg-white")}>
@@ -66,7 +66,7 @@ export const DevView = () => {
                 }
             </div>
             <div className="flex-grow mr-5">
-            <div className="flex flex-col border bg-white p-5 md:rounded-t-xl overflow-y-scroll w-full" style={{minWidth: "300px", maxHeight: "80vh"}} ref={chatBox}>
+            <div className="flex flex-col border bg-white p-5 overflow-y-scroll w-full" style={{minWidth: "300px", maxHeight: "80vh"}} ref={chatBox}>
                 {listMessagesByNumber(messages, number).map((message: {body: String, from: String, to: String, dateSent: any}) => (
                     <div className={"flex items-center" + (message.to != number ? "": " self-end")}>
                         <p className={"text-xs text-gray-500 mr-2" + (message.to != number ? "": " hidden")}>{("00" + (new Date(message.dateSent)).getHours()).slice(-2)}:{("00" + (new Date(message.dateSent)).getMinutes()).slice(-2)}</p>
