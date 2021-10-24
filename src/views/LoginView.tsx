@@ -48,7 +48,7 @@ function LoginView() {
       {/* Login Side */}
       <div className={`col-span-4 h-full w-full flex flex-col justify-center items-center ${!isLoading ? 'opacity-100' : 'opacity-0'}`}>
         {isLoading ? <MoonLoader speedMultiplier={0.5} color="green" size={150} css={`border-color:green`}/> : <div/>}
-        <h1 className="text-5xl text-green-600 pb-12 font-bold">Patterson</h1>
+        <h1 className="text-5xl text-green-600 pb-12 font-bold">Patter</h1>
 
         {/* Explore better validators?? */}
         <Formik

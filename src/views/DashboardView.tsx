@@ -102,16 +102,16 @@ function DashboardView() {
     setIsOpen(true);
   }
 
-  let prediction : any= ""
+  let prediction: any = "";
   useEffect(() => {
-    try{
-     axios.post("http://127.0.0.1:5000/").then((response)=> prediction = response.data);
+    try {
+      axios
+        .post("http://127.0.0.1:5000/")
+        .then((response) => (prediction = response.data));
+    } catch (e) {
+      console.log(e);
     }
-    catch (e) {
-      console.log(e)
-    }
-  }, []
-  );
+  }, []);
   return (
     <Layout>
       <div className="flex-col pr-10 pl-6 grid-rows-12">
@@ -198,13 +198,13 @@ function DashboardView() {
                             as="h3"
                             className="text-lg font-medium leading-6 text-gray-900"
                           >
-                            Payment successful
+                            Anomaly Detected
                           </Dialog.Title>
                           <div className="mt-2">
                             <p className="text-sm text-gray-500">
-                              Your payment has been successfully submitted.
-                              We’ve sent you an email with all of the details of
-                              your order.
+                              We've recently detected an abnormality in an
+                              item's popularity and sent you an email with
+                              further details on this situation.
                             </p>
                           </div>
 
@@ -276,10 +276,14 @@ function DashboardView() {
               </AreaChart>
             </ResponsiveContainer>
           </div>
-          <div className="bg-white col-start-9 w-1/4 ml-8 shadow-lg rounded-xl">
-            <div className="font-bold font-display flex justify-center items-start">
-              TO-DO
-            </div>
+          <div className="bg-white flex flex-col items-center ml-8 shadow-lg rounded-xl">
+            <h1 className="font-bold border-b-2 mt-4">TO-DO</h1>
+            <ul className="list-disc w-3/4 flex flex-col 2 items-center">
+              <li className="my-2">Region Branch Meeting</li>
+              <li> Halloween Office Shopping </li>
+              <li> Call with Corporate </li>
+
+            </ul>
           </div>
         </div>
 

@@ -28,7 +28,7 @@ function NavBar({ className }: NavBarProps) {
     >
       <div className="md:mt-3 self-start md:self-auto">
         <img onClick={() => setToggle(true)} className="md:hidden absolute z-10 top-4 left-4 w-5 h-5" src="https://img.icons8.com/material-outlined/24/000000/menu--v1.png"/>
-        <h1 className="text-green-600 text-3xl hidden md:block no-sel font-bold">Patterson</h1>
+        <h1 className="text-green-600 text-3xl hidden md:block no-sel font-bold">Patter</h1>
       </div>
       <div className={"bg-white z-20 md:z-0 absolute md:relative flex-col items-start justify-center w-full h-full md:mt-4 mx-4 md:rounded-2xl shadow " + (toggleLinks ? "" : " hidden md:block")}>
         <div className="flex flex-row justify-end mt-5 mr-5 text-gray-400 md:hidden" onClick={() => setToggle(false)}>
