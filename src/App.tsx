@@ -9,16 +9,11 @@ function App() {
     <div>
       <Router>
         <Switch>
-<<<<<<< HEAD
           <Route exact path="/dashboard">
             <DashboardView />
           </Route>
           <Route exact path="/">
             <LoginView />
-=======
-          <Route path="/dashboard">
-            <DashboardView/>
->>>>>>> sanath
           </Route>
           <Route path="/dev">
             <DevView/>
