@@ -19,6 +19,13 @@ app.get('/api/listMessages', (req, res) => {
                .then(messages => res.send(JSON.stringify(messages)));
 })
 
+app.post('/api/sendMessage', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    client.messages
+      .create({body: req.query.body, from: '+14143480176', to: req.query.number})
+      .then(message => res.send(JSON.stringify(message)));
+})
+
 
 
 app.get('/api/greeting', (req, res) => {
